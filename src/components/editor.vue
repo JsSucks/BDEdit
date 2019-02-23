@@ -196,6 +196,13 @@
                 const nf = this.newFile(target.value);
                 this.cnf = false;
                 this.$nextTick(() => this.sidebarItemClicked(nf));
+            },
+
+            createNewSnippet(e) {
+                const { target } = e;
+                const ns = this.newSnippet(target.value);
+                this.cns = false;
+                this.$nextTick(() => this.sidebarItemClicked(ns));
             }
 
         },
