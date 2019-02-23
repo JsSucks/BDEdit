@@ -12,6 +12,7 @@ export { default as ace } from 'brace';
 export { default as mode_js } from 'brace/mode/javascript';
 export { default as mode_css } from 'brace/mode/css';
 export { default as mode_scss } from 'brace/mode/scss';
+export { default as mode_text } from 'brace/mode/text';
 export { default as theme_default } from 'brace/theme/merbivore_soft';
 export { default as language_tools } from 'brace/ext/language_tools';
 

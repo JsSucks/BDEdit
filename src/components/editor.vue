@@ -86,7 +86,7 @@
             this.editor.$blockScrolling = Infinity;
             this.editor.setOptions(editorOptions);
             this.setTheme('merbivore_soft');
-            this.setMode('scss');
+            this.setMode('text');
             this.session().on('change', this.ionChange);
         },
         methods: {
