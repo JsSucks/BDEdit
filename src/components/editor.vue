@@ -153,6 +153,7 @@
             },
 
             ionChange(e, s) {
+                this.error = undefined;
                 if(!this.swc && this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
             },
 
