@@ -14,16 +14,18 @@
             <div class="bdedit_explorer">
                 <div class="bdedit_sidebarItem bdedit_sidebarTitle">Explorer</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Files</span> <button @click="_newFile">+</button></div>
-                <div class="bdedit_sidebarItem bdedit_sidebarFile" 
+                <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="file in files"
-                     :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}" 
-                     @click="() => sidebarItemClicked(file)"
-                >{{file.name}}</div>
+                     :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
+                     @click="() => sidebarItemClicked(file)">{{file.name}}</div>
                 <div v-if="cnf" class="bdedit_inputWrapper">
-                    <input type="text" @keydown.enter="createNewFile" ref="newFileInput"/>
+                    <input type="text" @keydown.enter="createNewFile" ref="newFileInput" />
                 </div>
-                <div class="bdedit_sidebarItem bdedit_sidebarHeader">Snippets</div>
+                <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Snippets</span> <button @click="_newSnippet">+</button></div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile" :class="{active: activeFn === file}" v-for="file in snippets" @click="() => sidebarItemClicked(file)">{{file}}</div>
+                <div v-if="cns" class="bdedit_inputWrapper">
+                    <input type="text" @keydown.enter="createNewSnippet" ref="newSnippetInput" />
+                </div>
             </div>
             <div class="bdedit_themeChooser">
                 <span>Theme: </span>
@@ -182,6 +184,11 @@
             _newFile() {
                 this.cnf = true;
                 this.$nextTick(() => this.$refs.newFileInput.focus());
+            },
+
+            _newSnippet() {
+                this.cns = true;
+                this.$nextTick(() => this.$refs.newSnippetInput.focus());
             },
 
             createNewFile(e) {
