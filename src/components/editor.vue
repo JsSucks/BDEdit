@@ -78,7 +78,6 @@
         },
         mounted() {
             console.log('[BDEdit] Mounted');
-            console.log(this.files);
             const style = document.createElement('style');
             style.append(document.createTextNode(styles));
             document.head.append(style);
@@ -122,7 +121,7 @@
             },
 
             sidebarItemClicked(item) {
-                this.updateContent(item, this.getValue());
+                if(this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
                 console.log('Loading file/snippet', item);
                 this.setMode(item.mode);
                 this.setValue(item.content);
