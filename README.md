@@ -1,0 +1,2 @@
+# BDEdit
+BetterDiscord content editor
