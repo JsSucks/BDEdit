@@ -13,8 +13,12 @@
         <div class="bdedit_sidebar">
             <div class="bdedit_explorer">
                 <div class="bdedit_sidebarItem bdedit_sidebarTitle">Explorer</div>
-                <div class="bdedit_sidebarItem bdedit_sidebarHeader">Files</div>
-                <div class="bdedit_sidebarItem bdedit_sidebarFile" :class="{active: activeFn === file}" v-for="file in files" @click="() => sidebarItemClicked(file)">{{file}}</div>
+                <div class="bdedit_sidebarItem bdedit_sidebarHeader">Files <button @click="_newFile">+</button></div>
+                <div class="bdedit_sidebarItem bdedit_sidebarFile" 
+                     v-for="file in files"
+                     :class="{active: activeFn === file.name}" 
+                     @click="() => sidebarItemClicked(file)"
+                >{{file.name}}</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader">Snippets</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile" :class="{active: activeFn === file}" v-for="file in snippets" @click="() => sidebarItemClicked(file)">{{file}}</div>
             </div>
@@ -73,6 +77,7 @@
         },
         mounted() {
             console.log('[BDEdit] Mounted');
+            console.log(this.files);
             const style = document.createElement('style');
             style.append(document.createTextNode(styles));
             document.head.append(style);
@@ -117,8 +122,8 @@
 
             sidebarItemClicked(item) {
                 const fi = this.fileInfo(item);
-                this.setMode(fi.mode);
-                this.setValue(fi.value);
+                this.setMode(item.mode);
+                this.setValue(item.content);
                 this.activeFn = item;
             },
 
@@ -152,7 +157,13 @@
                     // TODO Display error
                     console.log('runscript error: ', result.err);
                 }
+            },
+
+            _newFile() {
+                this.newFile();
             }
+
+
         }
     }
 </script>
