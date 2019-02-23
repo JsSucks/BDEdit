@@ -26,9 +26,34 @@
         }
 
         &.bdedit_sidebarHeader {
+            display: flex;
             color: #fff;
             font-weight: 700;
             background: #383838;
+
+            span {
+                align-items: center;
+                display: flex;
+                flex-grow: 1;
+            }
+
+            button {
+                background: transparent;
+                border: 0;
+                color: #aeaeae;
+                cursor: pointer;
+                height: 20px;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            &:hover {
+                button {
+                    display: inline-block;
+                }
+            }
         }
 
         &.bdedit_sidebarTitle {

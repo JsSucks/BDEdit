@@ -13,7 +13,7 @@
         <div class="bdedit_sidebar">
             <div class="bdedit_explorer">
                 <div class="bdedit_sidebarItem bdedit_sidebarTitle">Explorer</div>
-                <div class="bdedit_sidebarItem bdedit_sidebarHeader">Files <button @click="_newFile">+</button></div>
+                <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Files</span> <button @click="_newFile">+</button></div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile" 
                      v-for="file in files"
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}" 
