@@ -1,0 +1,12 @@
+.ace_editor ::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.ace_editor ::-webkit-scrollbar-thumb {
+    background: #3ecc9c;
+}
+
+.ace_editor ::-webkit-scrollbar-corner,
+.ace_editor ::-webkit-scrollbar-thumb:window-inactive {
+    background: #3ecc9c;
+}

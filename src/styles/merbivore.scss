@@ -1,0 +1,46 @@
+.bdedit_editor.ace-merbivore-soft {
+
+    .ace_gutter-cell {
+        color: #247eaf;
+    }
+
+    .ace_content {
+        background-color: #1e1e1e;
+    }
+
+    .ace_gutter-active-line {
+        background-color: transparent;
+    }
+
+    .ace_marker-layer .ace_active-line {
+        border: 2px solid #464646;
+        background: transparent;
+        margin-top: -1px;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+
+    .ace_gutter {
+        background-color: #1e1e1e;
+        border-right: 2px solid #3ecc9c;
+    }
+}
+
+.ace_editor.ace_autocomplete.ace-merbivore-soft {
+    background: #252526;
+    color: #fff;
+    border: 1px solid #303030;
+}
+
+.ace_editor.ace_autocomplete.ace-merbivore-soft .ace_marker-layer .ace_active-line {
+    background-color: #104835;
+}
+
+.ace_editor.ace_autocomplete.ace-merbivore-soft .ace_line-hover {
+    background: #104835;
+    border: 1px solid #3ecc9c;
+}
+
+.ace_editor.ace_autocomplete.ace-merbivore-soft .ace_completion-highlight {
+    color: #aeaeae;
+}

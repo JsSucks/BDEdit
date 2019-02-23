@@ -1,0 +1,16 @@
+.bdedit_editorOuterWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: #202020;
+}
+
+.bdedit_editorWrapper {
+    display: flex;
+    flex-grow: 1;
+}
+
+.bdedit_editor {
+    display: flex;
+    flex-grow: 1;
+}

@@ -1,0 +1,36 @@
+.bdedit_editorOuterWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: #202020;
+}
+
+.bdedit_tabs {
+    display: flex;
+    background: #252526;
+    height: 30px;
+}
+
+.bdedit_headerbtn {
+    display: flex;
+    height: 30px;
+    color: #aeaeae;
+    font-size: 12px;
+    line-height: 30px;
+    background-color: #2d2d2d;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.bdedit_runsvg {
+    display: inline-block;
+    width: 16px;
+    background-image: $runsvg;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bdedit_headerbtn:hover {
+    background-color: #1e1e1e;
+}
