@@ -137,6 +137,7 @@
                 }
                 t.innerHTML = '';
                 t.appendChild(document.createTextNode(this.getValue()));
+                if(this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
             },
 
             themelist() {
