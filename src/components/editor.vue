@@ -41,9 +41,12 @@
             </div>
         </div>
         <div class="bdedit_editorOuterWrapper">
+
             <div class="bdedit_tabs">
+                <div class="bdedit_headerbtn bdedit_btnsave" @click="_save"><span>Save</span></div>
                 <div class="bdedit_headerbtn bdedit_btnrun" @click="_runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
             </div>
+
             <div class="bdedit_editorWrapper">
                 <div class="bdedit_editor" ref="editor" />
                 <div class="bdedit_errorConsole" :class="{ active: error }">
@@ -164,6 +167,12 @@
 
             hideDds() {
                 this.themeddactive = false;
+            },
+
+            _save() {
+                if (this.activeFn === undefined) return;
+                if (this.activeFn.type === 'file') return this.saveFile(this.activeFn);
+                if (this.activeFn.type === 'snippet') return this.saveSnippet(this.activeFn);
             },
 
             _runScript() {
