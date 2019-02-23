@@ -16,7 +16,7 @@
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader">Files <button @click="_newFile">+</button></div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile" 
                      v-for="file in files"
-                     :class="{active: activeFn === file.name, bdedit_notsaved: !file.saved}" 
+                     :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}" 
                      @click="() => sidebarItemClicked(file)"
                 >{{file.name}}</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader">Snippets</div>
