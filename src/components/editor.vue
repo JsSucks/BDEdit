@@ -16,7 +16,7 @@
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader">Files <button @click="_newFile">+</button></div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile" 
                      v-for="file in files"
-                     :class="{active: activeFn === file.name}" 
+                     :class="{active: activeFn === file.name, bdedit_notsaved: !file.saved}" 
                      @click="() => sidebarItemClicked(file)"
                 >{{file.name}}</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader">Snippets</div>
@@ -61,6 +61,7 @@
             'activeFn',
 
             'runScript',
+            'updateContent',
             'saveSnippet',
             'saveFile',
             'newFile',
@@ -121,6 +122,7 @@
             },
 
             sidebarItemClicked(item) {
+                this.updateContent(item, this.getValue());
                 console.log('Loading file/snippet', item);
                 this.setMode(item.mode);
                 this.setValue(item.content);

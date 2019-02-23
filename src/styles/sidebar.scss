@@ -17,6 +17,14 @@
         padding: 3px 8px;
         font-size: 12px;
 
+        &.bdedit_notsaved {
+            font-style: italic;
+
+            &:after {
+                content: '*';
+            }
+        }
+
         &.bdedit_sidebarHeader {
             color: #fff;
             font-weight: 700;
