@@ -73,7 +73,8 @@
                 'themeddactive': false,
                 'currentTheme': {
                     caption: 'Merbivore Soft'
-                }
+                },
+                'swc': false
             }
         },
         mounted() {
@@ -121,11 +122,13 @@
             },
 
             sidebarItemClicked(item) {
-                if(this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
+                this.swc = true;
+                //if(this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
                 console.log('Loading file/snippet', item);
                 this.setMode(item.mode);
                 this.setValue(item.content);
                 this.activeFn = item;
+                this.swc = false;
             },
 
             ionChange(e, s) {
@@ -137,7 +140,8 @@
                 }
                 t.innerHTML = '';
                 t.appendChild(document.createTextNode(this.getValue()));
-                if(this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
+
+                if(!this.swc && this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
             },
 
             themelist() {
