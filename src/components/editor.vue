@@ -45,8 +45,7 @@
 
 <script>
     import styles from '../styles/index.scss';
-    import { ace, mode_js, mode_css, theme_default, language_tools } from '../ace.js';
-    const tl = require('brace/ext/themelist');
+    import '../ace';
 
     const editorOptions = {
         enableBasicAutocompletion: true,
@@ -87,7 +86,7 @@
             this.editor.$blockScrolling = Infinity;
             this.editor.setOptions(editorOptions);
             this.setTheme('merbivore_soft');
-            this.setMode('text');
+            this.setMode('scss');
             this.session().on('change', this.ionChange);
         },
         methods: {
@@ -123,12 +122,13 @@
 
             sidebarItemClicked(item) {
                 this.swc = true;
-                //if(this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
                 console.log('Loading file/snippet', item);
                 this.setMode(item.mode);
                 this.setValue(item.content);
+                this.editor.setOptions(editorOptions);
                 this.activeFn = item;
                 this.swc = false;
+                window.ed = this.editor;
             },
 
             ionChange(e, s) {
@@ -168,7 +168,6 @@
             _newFile() {
                 this.newFile();
             }
-
 
         }
     }

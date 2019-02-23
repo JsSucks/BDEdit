@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
-    "release": "webpack --progress --colors --config=webpack.production.config.js" 
+    "release": "webpack --progress --colors --config=webpack.production.config.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/JsSucks/BDEdit#readme",
   "dependencies": {
-    "brace": "^0.11.1"
+    "ace-builds": "^1.4.3"
   },
   "devDependencies": {
     "css-loader": "^2.1.0",
