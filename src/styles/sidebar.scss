@@ -56,3 +56,21 @@
         }
     }
 }
+.bdedit_inputWrapper {
+    display: flex;
+
+    input {
+        flex-grow: 1;
+        margin: 5px;
+        padding: 3px;
+        border: 1px solid $bdGreen;
+        background: rgba(30, 30, 30, .6);
+        color: #fff;
+        font-family: inherit;
+        font-size: 12px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

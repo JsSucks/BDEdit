@@ -19,7 +19,7 @@
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}" 
                      @click="() => sidebarItemClicked(file)"
                 >{{file.name}}</div>
-                <div v-if="cnf">
+                <div v-if="cnf" class="bdedit_inputWrapper">
                     <input type="text" @keydown.enter="createNewFile" ref="newFileInput"/>
                 </div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader">Snippets</div>
