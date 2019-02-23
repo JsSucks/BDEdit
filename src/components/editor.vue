@@ -150,16 +150,6 @@
             },
 
             ionChange(e, s) {
-                this.error = undefined;
-                let t = document.getElementById('test');
-                if (!t) {
-                    const nt = Object.assign(document.createElement('style'), { id: 'test' });
-                    t = nt;
-                    document.head.append(nt);
-                }
-                t.innerHTML = '';
-                t.appendChild(document.createTextNode(this.getValue()));
-
                 if(!this.swc && this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
             },
 
