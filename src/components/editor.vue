@@ -86,7 +86,7 @@
             this.editor.$blockScrolling = Infinity;
             this.editor.setOptions(editorOptions);
             this.setTheme('merbivore_soft');
-            this.setMode('css');
+            this.setMode('scss');
             this.session().on('change', this.ionChange);
         },
         methods: {
@@ -121,7 +121,7 @@
             },
 
             sidebarItemClicked(item) {
-                const fi = this.fileInfo(item);
+                console.log('Loading file/snippet', item);
                 this.setMode(item.mode);
                 this.setValue(item.content);
                 this.activeFn = item;
