@@ -30,7 +30,7 @@
         </div>
         <div class="bdedit_editorOuterWrapper">
             <div class="bdedit_tabs">
-                <div class="bdedit_headerbtn bdedit_btnrun" @click="runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
+                <div class="bdedit_headerbtn bdedit_btnrun" @click="_runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
             </div>
             <div class="bdedit_editorWrapper">
                 <div class="bdedit_editor" ref="editor" />
@@ -50,7 +50,18 @@
     }
 
     export default {
-        props: ['files', 'snippets', 'fileInfo', 'activeFn'],
+        props: [
+            'files',
+            'snippets',
+            'fileInfo',
+            'activeFn',
+
+            'runScript',
+            'saveSnippet',
+            'saveFile',
+            'newFile',
+            'newSnippet'
+        ],
         data() {
             return {
                 'editor': null,
@@ -135,8 +146,12 @@
                 this.themeddactive = false;
             },
 
-            runScript() {
-                new Function(this.getValue())();
+            _runScript() {
+                const result = this.runScript(this.getValue());
+                if (result.err) {
+                    // TODO Display error
+                    console.log('runscript error: ', result.err);
+                }
             }
         }
     }
