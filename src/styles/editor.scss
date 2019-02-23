@@ -7,10 +7,46 @@
 
 .bdedit_editorWrapper {
     display: flex;
+    flex-direction: column;
     flex-grow: 1;
 }
 
 .bdedit_editor {
     display: flex;
     flex-grow: 1;
+}
+
+.bdedit_errorConsole {
+    height: 0;
+    color: #ff5252;
+    font-family: inherit;
+    font-size: 12px;
+
+    &.active {
+        max-height: 150px;
+        height: auto;
+        overflow-y: auto;
+        .bdedit_errorMsg {
+            display: block;
+        }
+    }
+
+    .bdedit_errorMsg {
+        display: none;
+        padding: 10px;
+        white-space: pre-wrap;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0.5em;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #3ecc9c;
+    }
+
+    &::-webkit-scrollbar-corner,
+    &::-webkit-scrollbar-thumb:window-inactive {
+        background: #3ecc9c;
+    }
 }

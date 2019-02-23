@@ -19,6 +19,9 @@
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}" 
                      @click="() => sidebarItemClicked(file)"
                 >{{file.name}}</div>
+                <div v-if="cnf">
+                    <input type="text" @keydown.enter="createNewFile" ref="newFileInput"/>
+                </div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader">Snippets</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile" :class="{active: activeFn === file}" v-for="file in snippets" @click="() => sidebarItemClicked(file)">{{file}}</div>
             </div>
@@ -38,6 +41,9 @@
             </div>
             <div class="bdedit_editorWrapper">
                 <div class="bdedit_editor" ref="editor" />
+                <div class="bdedit_errorConsole" :class="{ active: error }">
+                    <div class="bdedit_errorMsg">{{error}}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -73,7 +79,10 @@
                 'currentTheme': {
                     caption: 'Merbivore Soft'
                 },
-                'swc': false
+                'swc': false,
+                'error': undefined,
+                'cnf': false,
+                'cns': false
             }
         },
         mounted() {
@@ -92,6 +101,10 @@
         methods: {
             session() {
                 return this.editor.getSession();
+            },
+
+            setError(err) {
+                this.error = err;
             },
 
             setTheme(theme) {
@@ -128,10 +141,11 @@
                 this.editor.setOptions(editorOptions);
                 this.activeFn = item;
                 this.swc = false;
-                window.ed = this.editor;
+                this.editor.focus();
             },
 
             ionChange(e, s) {
+                this.error = undefined;
                 let t = document.getElementById('test');
                 if (!t) {
                     const nt = Object.assign(document.createElement('style'), { id: 'test' });
@@ -160,15 +174,28 @@
             _runScript() {
                 const result = this.runScript(this.getValue());
                 if (result.err) {
-                    // TODO Display error
                     console.log('runscript error: ', result.err);
+                    this.setError(result.err);
                 }
             },
 
             _newFile() {
-                this.newFile();
+                this.cnf = true;
+                this.$nextTick(() => this.$refs.newFileInput.focus());
+            },
+
+            createNewFile(e) {
+                const { target } = e;
+                const nf = this.newFile(target.value);
+                this.cnf = false;
+                this.$nextTick(() => this.sidebarItemClicked(nf));
             }
 
+        },
+        watch: {
+            error() {
+                this.$nextTick(() => this.editor.resize());
+            }
         }
     }
 </script>
