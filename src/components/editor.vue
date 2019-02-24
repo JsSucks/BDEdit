@@ -176,8 +176,8 @@
                 if (this.activeFn.type === 'snippet') return this.saveSnippet(this.activeFn);
             },
 
-            _runScript() {
-                const result = this.runScript(this.getValue());
+            async _runScript() {
+                const result = await this.runScript(this.getValue());
                 if (result.err) {
                     console.log('runscript error: ', result.err);
                     this.setError(result.err);
