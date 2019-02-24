@@ -130,6 +130,7 @@
             },
 
             setMode(mode) {
+                if (mode === 'js') mode = 'javascript';
                 this.session().setMode(`ace/mode/${mode}`);
             },
 
