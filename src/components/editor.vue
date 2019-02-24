@@ -71,7 +71,6 @@
             'files',
             'snippets',
             'fileInfo',
-            'activeFn',
 
             'runScript',
             'updateContent',
@@ -90,7 +89,8 @@
                 'swc': false,
                 'error': undefined,
                 'cnf': false,
-                'cns': false
+                'cns': false,
+                'activeFn': undefined
             }
         },
         mounted() {
