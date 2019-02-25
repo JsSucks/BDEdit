@@ -34,6 +34,7 @@
                     <input type="text" @keydown.enter="createNewSnippet" ref="newSnippetInput" />
                 </div>
             </div>
+            <!--
             <div class="bdedit_themeChooser">
                 <span>Theme: </span>
                 <div class="bdedit_dropdown" :class="{active: themeddactive}" @click.stop="toggleThemeDd">
@@ -42,6 +43,11 @@
                         <div class="bdedit_dropdownItem" :class="{active: theme.caption === currentTheme.caption}" v-for="theme in themelist().themes" @click.stop="selectTheme(theme)">{{theme.caption}}</div>
                     </div>
                 </div>
+            </div>
+             -->
+            <div class="bdedit_extras">
+                <div class="bdedit_extras" @click="() => editor.showSettingsMenu()">Settings</div>
+                <div class="bdedit_extras" @click="() => editor.showKeyboardShortcuts()">Keybinds</div>
             </div>
         </div>
         <div class="bdedit_editorOuterWrapper">
@@ -111,6 +117,9 @@
             this.setTheme('merbivore_soft');
             this.setMode('scss');
             this.session().on('change', this.ionChange);
+
+            ace.config.loadModule('ace/ext/settings_menu', module => { module.init(this.editor) });
+            ace.config.loadModule("ace/ext/keybinding_menu", module => { module.init(this.editor) });
             window._editor = this.editor;
         },
         methods: {
