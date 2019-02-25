@@ -13,9 +13,13 @@
         <div class="bdedit_sidebar">
             <div class="bdedit_explorer">
                 <div class="bdedit_sidebarItem bdedit_sidebarTitle">Explorer</div>
+                <div class="bdedit_sidebarItem bdedit_sidebarFile"
+                     v-for="file in hoistedFiles"
+                     :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
+                     @click="() => sidebarItemClicked(file)">{{file.name}}</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Files</span> <button @click="_newFile">+</button></div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
-                     v-for="file in files"
+                     v-for="file in normalFiles"
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
                      @click="() => sidebarItemClicked(file)">{{file.name}}</div>
                 <div v-if="cnf" class="bdedit_inputWrapper">
@@ -224,6 +228,14 @@
         watch: {
             error() {
                 this.$nextTick(() => this.editor.resize());
+            }
+        },
+        computed: {
+            hoistedFiles() {
+                return this.files.filter(file => file.hoisted);
+            },
+            normalFiles() {
+                return this.files.filter(file => !file.hoisted);
             }
         }
     }
