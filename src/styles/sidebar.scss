@@ -98,3 +98,22 @@
         }
     }
 }
+
+.bdedit_extras {
+    display: flex;
+    color: #aeaeae;
+    font-size: 12px;
+
+    .bdedit_extra {
+        padding: 5px;
+        background: rgba(0, 0, 0, .2);
+        margin: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            color: #fff;
+            background: rgba(0, 0, 0, .4);
+        }
+    }
+}

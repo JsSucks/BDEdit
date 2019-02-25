@@ -46,8 +46,8 @@
             </div>
              -->
             <div class="bdedit_extras">
-                <div class="bdedit_extras" @click="() => editor.showSettingsMenu()">Settings</div>
-                <div class="bdedit_extras" @click="() => editor.showKeyboardShortcuts()">Keybinds</div>
+                <div class="bdedit_extra" @click="() => editor.showSettingsMenu()">Settings</div>
+                <div class="bdedit_extra" @click="() => editor.showKeyboardShortcuts()">Keybinds</div>
             </div>
         </div>
         <div class="bdedit_editorOuterWrapper">
