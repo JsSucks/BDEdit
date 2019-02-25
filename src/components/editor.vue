@@ -44,7 +44,8 @@
 
             <div class="bdedit_tabs">
                 <div class="bdedit_headerbtn bdedit_btnsave" @click="_save"><span>Save</span></div>
-                <div class="bdedit_headerbtn bdedit_btnrun" @click="_runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
+                <div v-if="activeFn && activeFn.mode === 'js'" class="bdedit_headerbtn bdedit_btnrun" @click="_runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
+                <div v-if="activeFn && (activeFn.mode === 'css' || activeFn.mode === 'scss')" class="bdedit_headerbtn bdedit_btnsave" @click="_inject"><span>Inject</span></div>
             </div>
 
             <div class="bdedit_editorWrapper">
@@ -77,7 +78,8 @@
             'saveSnippet',
             'saveFile',
             'newFile',
-            'newSnippet'
+            'newSnippet',
+            'injectStyle'
         ],
         data() {
             return {
@@ -105,6 +107,7 @@
             this.setTheme('merbivore_soft');
             this.setMode('scss');
             this.session().on('change', this.ionChange);
+            window._editor = this.editor;
         },
         methods: {
             session() {
@@ -181,6 +184,14 @@
                 const result = await this.runScript(this.getValue());
                 if (result.err) {
                     console.log('runscript error: ', result.err);
+                    this.setError(result.err);
+                }
+            },
+
+            async _inject() {
+                const result = await this.injectStyle(this.activeFn);
+                if (result.err) {
+                    console.log('inject error: ', result.err);
                     this.setError(result.err);
                 }
             },
