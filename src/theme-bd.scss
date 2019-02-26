@@ -1,0 +1,91 @@
+$lineNumber: rgb(43, 145, 175);
+$selectedTextBg: rgb(51, 153, 255);
+$visibleWhitespace: rgb(20, 72, 82);
+$braceMatchingBg: rgb(14, 69, 131);
+$keyword: rgb(86, 156, 213);
+$classTemplate: rgb(78, 201, 176);
+$enum: rgb(184, 215, 163);
+$userType: rgb(78, 201, 176);
+$variable: rgb(200, 200, 200);
+$string: rgb(214, 157, 133);
+$caret: rgb(0, 151, 251);
+$comment: rgb(87, 166, 74);
+$cssPropertyName: rgb(156, 220, 254);
+$cssPropertyValue: rgb(200, 200, 200);
+$cssSelector: rgb(215, 186, 125);
+$cssString: $string;
+$jsonPropertyName: rgb(215, 186, 125);
+$mixinDecl: rgb(125, 186, 215);
+$mixinRef: $mixinDecl;
+$variableDecl: rgb(197, 99, 189);
+$variableRef: $variableDecl;
+
+$typeClass: rgb(78, 201, 176);
+$typeDel: $typeClass;
+$typeEnum: rgb(184, 215, 163);
+$typeIf: $typeEnum;
+$typeModule: $typeClass;
+$typeStruct: rgb(134, 198, 145);
+$typeParams: $typeEnum;
+
+.ace-betterdiscord {
+    background: #1e1e1e;
+    color: rgb(220, 220, 220);
+
+    .ace_gutter {
+        background: #1e1e1e;
+    }
+
+    .ace_print-margin {
+        display: none;
+    }
+
+    .ace_support {
+        &.ace_type {
+            color: rgb(156, 220, 254);
+        }
+    }
+
+    .ace_variable {
+        color: rgb(215, 186, 125);
+    }
+
+    .ace_keyword,
+    .ace_storage,
+    .ace_identifier {
+        color: $keyword;
+    }
+
+    .ace_operator {
+        color: rgb(220, 220, 220);
+    }
+
+    .ace_keyword {
+        + .ace_identifier {
+            color: $typeClass;
+        }
+    }
+
+    .ace_string {
+        color: $string;
+    }
+
+    .ace_type,
+    .ace_operator,
+    .ace_paren,
+    .ace_keyword,
+    .ace_indent-guide {
+        + .ace_variable,
+        + .ace_identifier {
+            color: rgb(220, 220, 220);
+        }
+    }
+
+    .ace_comment {
+        color: $comment;
+    }
+
+    .ace_line span:first-child[class='ace_identifier'] {
+        color: rgb(220, 220, 220);
+    }
+}

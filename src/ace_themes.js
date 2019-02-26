@@ -35,3 +35,4 @@ import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/theme-twilight';
 import 'ace-builds/src-noconflict/theme-vibrant_ink';
 import 'ace-builds/src-noconflict/theme-xcode';
+import './theme-bd';
