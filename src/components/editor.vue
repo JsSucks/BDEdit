@@ -16,12 +16,12 @@
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="file in hoistedFiles"
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
-                     @click="() => sidebarItemClicked(file)">{{file.name}}</div>
+                     @click="() => sidebarItemClicked(file)">{{file.caption || file.name}}</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Files</span> <button @click="_newFile">+</button></div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="file in normalFiles"
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
-                     @click="() => sidebarItemClicked(file)">{{file.name}}</div>
+                     @click="() => sidebarItemClicked(file)">{{file.caption || file.name}}</div>
                 <div v-if="cnf" class="bdedit_inputWrapper">
                     <input type="text" @keydown.enter="createNewFile" ref="newFileInput" />
                 </div>
@@ -29,7 +29,7 @@
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="snippet in snippets"
                      :class="{active: activeFn && activeFn.name === snippet.name, bdedit_notsaved: !snippet.saved}"
-                     @click="() => sidebarItemClicked(snippet)">{{snippet.name}}</div>
+                     @click="() => sidebarItemClicked(snippet)">{{snippet.caption || snippet.name}}</div>
                 <div v-if="cns" class="bdedit_inputWrapper">
                     <input type="text" @keydown.enter="createNewSnippet" ref="newSnippetInput" />
                 </div>
