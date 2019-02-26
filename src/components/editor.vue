@@ -121,10 +121,29 @@
             ace.config.loadModule('ace/ext/settings_menu', module => { module.init(this.editor) });
             ace.config.loadModule("ace/ext/keybinding_menu", module => { module.init(this.editor) });
             window._editor = this.editor;
+
+            this.loadInitialFile();
         },
         methods: {
             session() {
                 return this.editor.getSession();
+            },
+
+            loadInitialFile() {
+                if (this.files.length <= 0) return;
+
+                if (this.files.length === 1) {
+                    this.sidebarItemClicked(this.files[0]);
+                    return;
+                }
+
+                const activeFile = this.files.find(f => f.hoisted === true);
+                if (activeFile) {
+                    this.sidebarItemClicked(activeFile);
+                    return;
+                }
+
+                this.sidebarItemClicked(this.files[0]);
             },
 
             setError(err) {
