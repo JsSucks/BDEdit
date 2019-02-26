@@ -123,6 +123,11 @@
             window._editor = this.editor;
 
             this.loadInitialFile();
+
+            window.addEventListener('keydown', e => {
+                if ((!e.ctrlKey || !e.metaKey) && e.which !== 83) return;
+                this._save();
+            });
         },
         methods: {
             session() {
@@ -190,7 +195,7 @@
 
             ionChange(e, s) {
                 this.error = undefined;
-                if(!this.swc && this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
+                if (!this.swc && this.activeFn !== undefined) this.updateContent(this.activeFn, this.getValue());
             },
 
             themelist() {
