@@ -1,0 +1,49 @@
+.bdedit_toggleWrapper {
+    display: flex;
+    margin-left: 5px;
+    cursor: pointer;
+
+    span {
+        color: #aeaeae;
+        font-family: inherit;
+        font-size: 12px;
+        line-height: 30px;
+    }
+
+    .bdedit_toggle {
+        margin-top: 8px;
+        margin-left: 5px;
+        background-color: #525252;
+        overflow: hidden;
+        border-radius: 1px;
+        height: 14px;
+        width: 24px;
+        position: relative;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.15);
+
+        &:after {
+            background-color: #d8d8d8;
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: 1;
+            margin: 0px;
+            width: 12px;
+            height: 14px;
+            transition: transform .15s ease-in-out,width .1s ease-in-out,left .1s ease-in-out,-webkit-transform .15s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,.3);
+            transform: translateZ(0);
+        }
+    }
+
+    &.active {
+        .bdedit_toggle {
+            background-color: #3ecc9c;
+
+            &:after {
+                transform: translate3d(12px,0,0);
+                background-color: #fff;
+            }
+        }
+    }
+}

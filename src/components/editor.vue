@@ -56,6 +56,10 @@
                 <div class="bdedit_headerbtn bdedit_btnsave" @click="_save"><span>Save</span></div>
                 <div v-if="activeFn && (activeFn.mode === 'js' || activeFn.mode === 'javascript')" class="bdedit_headerbtn bdedit_btnrun" @click="_runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
                 <div v-if="activeFn && (activeFn.mode === 'css' || activeFn.mode === 'scss')" class="bdedit_headerbtn bdedit_btnsave" @click="_inject"><span>Inject</span></div>
+                <div class="bdedit_toggleWrapper" :class="{ active: activeFn.liveUpdateEnabled }" v-if="activeFn && (activeFn.liveUpdate)" @click="_toggleLiveUpdate">
+                    <span>Live Update</span>
+                    <div class="bdedit_toggle"/>
+                </div>
             </div>
 
             <div class="bdedit_editorWrapper">
@@ -89,7 +93,8 @@
             'saveFile',
             'newFile',
             'newSnippet',
-            'injectStyle'
+            'injectStyle',
+            'toggleLiveUpdate'
         ],
         data() {
             return {
@@ -273,6 +278,11 @@
                 const ns = this.newSnippet(target.value);
                 this.cns = false;
                 this.$nextTick(() => this.sidebarItemClicked(ns));
+            },
+
+            _toggleLiveUpdate() {
+                this.activeFn = this.toggleLiveUpdate(this.activeFn);
+                this.$forceUpdate();
             }
 
         },
