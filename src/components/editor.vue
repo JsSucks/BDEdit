@@ -54,7 +54,7 @@
 
             <div class="bdedit_tabs">
                 <div class="bdedit_headerbtn bdedit_btnsave" @click="_save"><span>Save</span></div>
-                <div v-if="activeFn && activeFn.mode === 'js'" class="bdedit_headerbtn bdedit_btnrun" @click="_runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
+                <div v-if="activeFn && (activeFn.mode === 'js' || activeFn.mode === 'javascript')" class="bdedit_headerbtn bdedit_btnrun" @click="_runScript"><span>Run</span> <span class="bdedit_runsvg" /></div>
                 <div v-if="activeFn && (activeFn.mode === 'css' || activeFn.mode === 'scss')" class="bdedit_headerbtn bdedit_btnsave" @click="_inject"><span>Inject</span></div>
             </div>
 
