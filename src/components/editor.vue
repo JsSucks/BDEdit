@@ -124,9 +124,27 @@
 
             this.loadInitialFile();
 
-            window.addEventListener('keydown', e => {
-                if ((!e.ctrlKey || !e.metaKey) && e.which !== 83) return;
-                this._save();
+            document.body.addEventListener('keydown', e => {
+                if ((e.ctrlKey || e.metaKey) && e.which === 82) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const mode = this.activeFn.mode;
+
+                    if (mode === 'js' || mode === 'javascript') return this._runScript();
+                    if (mode === 'css' || mode === 'scss') return this._inject();
+
+                    return;
+                }
+
+                if ((e.ctrlKey || e.metaKey) && e.which === 83) {
+                    this._save();
+                    return;
+                }
+
+                if ((e.ctrlKey || e.metaKey) && e.which === 116) {
+                    document.location.reload();
+                }
+
             });
         },
         methods: {
