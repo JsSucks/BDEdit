@@ -34,3 +34,21 @@
 .bdedit_headerbtn:hover {
     background-color: #1e1e1e;
 }
+
+.bdedit_container .bdedit_disc {
+    display: flex;
+    padding: 0 10px;
+
+    span {
+        color: $bdGreen;
+        font-size: 12px;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    .bdedit_headerbtn {
+        margin-left: 10px;
+        height: 20px;
+        line-height: 20px;
+    }
+}

@@ -61,6 +61,10 @@
                     <div class="bdedit_toggle"/>
                 </div>
             </div>
+            <div class="bdedit_disc" v-if="activeFn && activeFn.changed">
+                <span>Contents of this file have changed on disk.</span> 
+                <div class="bdedit_headerbtn" @click="() => sidebarItemClicked(activeFn, true)">Reload</div>
+            </div>
 
             <div class="bdedit_editorWrapper">
                 <div class="bdedit_editor" ref="editor" />
@@ -93,6 +97,8 @@
             'saveFile',
             'newFile',
             'newSnippet',
+            'readFile',
+            'readSnippet',
             'injectStyle',
             'toggleLiveUpdate'
         ],
@@ -107,7 +113,8 @@
                 'error': undefined,
                 'cnf': false,
                 'cns': false,
-                'activeFn': undefined
+                'activeFn': undefined,
+                'loading': true
             }
         },
         mounted() {
@@ -205,11 +212,17 @@
                 return this.editor.getValue();
             },
 
-            sidebarItemClicked(item) {
+            async sidebarItemClicked(item, forceReload = false) {
+                console.log(`Loading ${item.type}`, item);
+                let content = item.content;
+                if (!item.read || forceReload) {
+                    this.loading = true;
+                    content = item.type === 'file' ? await this.readFile(item) : await this.readSnippet(item);
+                }
+                this.loading = false;
                 this.swc = true;
-                console.log('Loading file/snippet', item);
                 this.setMode(item.mode);
-                this.setValue(item.content);
+                this.setValue(content);
                 this.editor.setOptions(editorOptions);
                 this.activeFn = item;
                 this.swc = false;
