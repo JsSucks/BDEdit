@@ -11,7 +11,7 @@
 <template>
     <div class="bdedit_container" @click="hideDds">
         <div class="bdedit_loadingOverlay" :class="{ active: (loading || parentLoading) }">
-            <div class="bdedit_loadingSpinner"/>
+            <div class="bdedit_loadingSpinner" />
         </div>
         <div class="bdedit_sidebar">
             <div class="bdedit_explorer">
@@ -21,18 +21,23 @@
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
                      @click="() => sidebarItemClicked(file)">{{file.caption || file.name}}</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Files</span> <button @click="_newFile">+</button></div>
+
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="file in normalFiles"
                      :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
-                     @click="() => sidebarItemClicked(file)">{{file.caption || file.name}}</div>
+                     @click="() => sidebarItemClicked(file)"
+                     @contextmenu="e => contextMenu(e, file)">{{file.caption || file.name}}</div>
+
                 <div v-if="cnf" class="bdedit_inputWrapper">
                     <input type="text" @keydown.enter="createNewFile" ref="newFileInput" />
                 </div>
+
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Snippets</span> <button @click="_newSnippet">+</button></div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="snippet in snippets"
                      :class="{active: activeFn && activeFn.name === snippet.name, bdedit_notsaved: !snippet.saved}"
                      @click="() => sidebarItemClicked(snippet)">{{snippet.caption || snippet.name}}</div>
+
                 <div v-if="cns" class="bdedit_inputWrapper">
                     <input type="text" @keydown.enter="createNewSnippet" ref="newSnippetInput" />
                 </div>
@@ -51,11 +56,11 @@
                 <div v-if="activeFn && (activeFn.mode === 'css' || activeFn.mode === 'scss')" class="bdedit_headerbtn bdedit_btnsave" @click="_inject"><span>Inject</span></div>
                 <div class="bdedit_toggleWrapper" :class="{ active: activeFn.liveUpdateEnabled }" v-if="activeFn && (activeFn.liveUpdate)" @click="_toggleLiveUpdate">
                     <span>Live Update</span>
-                    <div class="bdedit_toggle"/>
+                    <div class="bdedit_toggle" />
                 </div>
             </div>
             <div class="bdedit_disc" v-if="activeFn && activeFn.changed">
-                <span>Contents of this file have changed on disk.</span> 
+                <span>Contents of this file have changed on disk.</span>
                 <div class="bdedit_headerbtn" @click="() => sidebarItemClicked(activeFn, true)">Reload</div>
             </div>
 
@@ -65,6 +70,15 @@
                     <div class="bdedit_errorMsg">{{error}}</div>
                 </div>
             </div>
+        </div>
+        <div v-if="ctxMenu" class="bdedit_ctxMenu" :style="{ 'left': `${ctxMenu.x}px`, 'top': `${ctxMenu.y}` }">
+            <ul>
+                <li @click.stop="() => _ctxAction('reveal')">Reveal in Explorer</li>
+                <li @click.stop="() => _ctxAction('copy')">Copy</li>
+                <li @click.stop="() => _ctxAction('copyPath')">Copy Path</li>
+                <li @click.stop="() => _ctxAction('rename')">Rename</li>
+                <li @click.stop="() => _ctxAction('delete')">Delete</li>
+            </ul>
         </div>
     </div>
 </template>
@@ -108,7 +122,8 @@
                 'cnf': false,
                 'cns': false,
                 'activeFn': undefined,
-                'loading': true
+                'loading': true,
+                'ctxMenu': undefined
             }
         },
         mounted() {
@@ -129,6 +144,7 @@
             window._editor = this.editor;
 
             document.body.addEventListener('keydown', e => {
+                this.ctxMenu = undefined
                 if ((e.ctrlKey || e.metaKey) && e.which === 82) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -149,6 +165,9 @@
                     document.location.reload();
                 }
 
+            });
+            window.addEventListener('click', e => {
+                this.ctxMenu = undefined
             });
 
             this.loading = false;
@@ -294,6 +313,19 @@
             _toggleLiveUpdate() {
                 this.activeFn = this.toggleLiveUpdate(this.activeFn);
                 this.$forceUpdate();
+            },
+
+            contextMenu(e, item) {
+                this.ctxMenu = {
+                    x: e.clientX,
+                    y: e.clientY,
+                    item
+                };
+            },
+
+            _ctxAction(action) {
+                console.log(action, this.ctxMenu.item);
+                this.ctxMenu = undefined;
             }
 
         },
