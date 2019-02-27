@@ -15,7 +15,6 @@
         </div>
         <div class="bdedit_sidebar">
             <div class="bdedit_explorer">
-                <button @click="() => { this.loading = !this.loading }">test</button>
                 <div class="bdedit_sidebarItem bdedit_sidebarTitle">Explorer</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="file in hoistedFiles"
