@@ -10,7 +10,7 @@
 
 <template>
     <div class="bdedit_container" @click="hideDds">
-        <div class="bdedit_loadingOverlay" :class="{ active: loading || parentLoading }">
+        <div class="bdedit_loadingOverlay" :class="{ active: (loading || parentLoading) }">
             <div class="bdedit_loadingSpinner"/>
         </div>
         <div class="bdedit_sidebar">
@@ -128,8 +128,6 @@
             ace.config.loadModule("ace/ext/keybinding_menu", module => { module.init(this.editor) });
             window._editor = this.editor;
 
-            this.loadInitialFile();
-
             document.body.addEventListener('keydown', e => {
                 if ((e.ctrlKey || e.metaKey) && e.which === 82) {
                     e.preventDefault();
@@ -152,6 +150,9 @@
                 }
 
             });
+
+            this.loading = false;
+            this.loadInitialFile();
         },
         methods: {
             session() {
@@ -159,6 +160,9 @@
             },
 
             loadInitialFile() {
+                if (this.loading || this.parentLoading) {
+                    return setTimeout(this.loadInitialFile, 100);
+                }
                 if (this.files.length <= 0) return;
 
                 if (this.files.length === 1) {
