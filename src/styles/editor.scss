@@ -1,3 +1,30 @@
+.bdedit_loadingOverlay {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 34px;
+    z-index: 9000;
+
+    &.active {
+        pointer-events: all;
+        opacity: 1;
+        animation: opacitydelay 1s forwards;
+
+        .bdedit_loadingSpinner {
+        }
+    }
+
+    .bdedit_loadingSpinner {
+        position: absolute;
+        bottom: 15px;
+        right: 30px;
+        z-index: 90001;
+    }
+}
+
 .bdedit_editorOuterWrapper {
     display: flex;
     flex-direction: column;
@@ -48,5 +75,19 @@
     &::-webkit-scrollbar-corner,
     &::-webkit-scrollbar-thumb:window-inactive {
         background: #3ecc9c;
+    }
+}
+
+@-webkit-keyframes opacitydelay {
+    0% {
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
     }
 }

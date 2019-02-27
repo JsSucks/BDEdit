@@ -10,8 +10,12 @@
 
 <template>
     <div class="bdedit_container" @click="hideDds">
+        <div class="bdedit_loadingOverlay" :class="{ active: loading || parentLoading }">
+            <div class="bdedit_loadingSpinner"/>
+        </div>
         <div class="bdedit_sidebar">
             <div class="bdedit_explorer">
+                <button @click="() => { this.loading = !this.loading }">test</button>
                 <div class="bdedit_sidebarItem bdedit_sidebarTitle">Explorer</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarFile"
                      v-for="file in hoistedFiles"
@@ -34,17 +38,7 @@
                     <input type="text" @keydown.enter="createNewSnippet" ref="newSnippetInput" />
                 </div>
             </div>
-            <!--
-            <div class="bdedit_themeChooser">
-                <span>Theme: </span>
-                <div class="bdedit_dropdown" :class="{active: themeddactive}" @click.stop="toggleThemeDd">
-                    <span class="bdedit_dropdownSelected">{{currentTheme.caption}}</span>
-                    <div class="bdedit_dropdownInner" ref="themedd">
-                        <div class="bdedit_dropdownItem" :class="{active: theme.caption === currentTheme.caption}" v-for="theme in themelist().themes" @click.stop="selectTheme(theme)">{{theme.caption}}</div>
-                    </div>
-                </div>
-            </div>
-             -->
+
             <div class="bdedit_extras">
                 <div class="bdedit_extra" @click="() => editor.showSettingsMenu()">Settings</div>
                 <div class="bdedit_extra" @click="() => editor.showKeyboardShortcuts()">Keybinds</div>
@@ -100,7 +94,8 @@
             'readFile',
             'readSnippet',
             'injectStyle',
-            'toggleLiveUpdate'
+            'toggleLiveUpdate',
+            'parentLoading'
         ],
         data() {
             return {
