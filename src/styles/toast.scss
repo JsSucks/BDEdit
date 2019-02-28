@@ -1,0 +1,16 @@
+.bdedit_toast {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+    z-index: 90000;
+    background: #c13b3b;
+    color: #303030;
+    transform: translateY(100px);
+    transition: transform 1s;
+    border-radius: 3px;
+    padding: 5px;
+
+    &.active {
+        transform: none;
+    }
+}

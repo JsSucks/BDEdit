@@ -13,6 +13,9 @@
         <div class="bdedit_loadingOverlay" :class="{ active: (loading || parentLoading) }">
             <div class="bdedit_loadingSpinner" />
         </div>
+        <div class="bdedit_toast" :class="{ active: toast.active }">
+            <div class="bdedit_toastInner">{{toast.msg}}</div>
+        </div>
         <div class="bdedit_sidebar">
             <div class="bdedit_explorer">
                 <div class="bdedit_sidebarItem bdedit_sidebarTitle">Explorer</div>
@@ -113,6 +116,7 @@
             'injectStyle',
             'toggleLiveUpdate',
             'parentLoading',
+            'toast',
 
             'ctxAction'
         ],
