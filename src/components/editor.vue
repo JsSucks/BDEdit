@@ -22,14 +22,18 @@
                      @click="() => sidebarItemClicked(file)">{{file.caption || file.name}}</div>
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Files</span> <button @click="_newFile">+</button></div>
 
-                <div class="bdedit_sidebarItem bdedit_sidebarFile"
-                     v-for="file in normalFiles"
-                     :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
-                     @click="() => sidebarItemClicked(file)"
-                     @contextmenu="e => contextMenu(e, file)">{{file.caption || file.name}}</div>
+                <template v-for="file in normalFiles">
+                    <div v-if="ctxAct && ctxAct.action === 'rename' && ctxAct.item.name === file.name" class="bdedit_inputWrapper">
+                        <input type="text" @click.stop @keydown.enter="e => renameFile(e, file)" @keydown.esc="ctxAct = undefined" ref="renameInput" :value="file.name" />
+                    </div>
+                    <div v-else class="bdedit_sidebarItem bdedit_sidebarFile"
+                         :class="{active: activeFn && activeFn.name === file.name, bdedit_notsaved: !file.saved}"
+                         @click="() => sidebarItemClicked(file)"
+                         @contextmenu="e => contextMenu(e, file)">{{file.caption || file.name}}</div>
+                </template>
 
                 <div v-if="cnf" class="bdedit_inputWrapper">
-                    <input type="text" @keydown.enter="createNewFile" ref="newFileInput" />
+                    <input type="text" @keydown.enter="createNewFile" @keydown.esc="cnf = false" ref="newFileInput" />
                 </div>
 
                 <div class="bdedit_sidebarItem bdedit_sidebarHeader"><span>Snippets</span> <button @click="_newSnippet">+</button></div>
@@ -39,7 +43,7 @@
                      @click="() => sidebarItemClicked(snippet)">{{snippet.caption || snippet.name}}</div>
 
                 <div v-if="cns" class="bdedit_inputWrapper">
-                    <input type="text" @keydown.enter="createNewSnippet" ref="newSnippetInput" />
+                    <input type="text" @keydown.enter="createNewSnippet" @keydown.esc="cns = false" ref="newSnippetInput" />
                 </div>
             </div>
 
@@ -123,7 +127,8 @@
                 'cns': false,
                 'activeFn': undefined,
                 'loading': true,
-                'ctxMenu': undefined
+                'ctxMenu': undefined,
+                'ctxAct': undefined
             }
         },
         mounted() {
@@ -167,7 +172,8 @@
 
             });
             window.addEventListener('click', e => {
-                this.ctxMenu = undefined
+                this.ctxMenu = undefined;
+                this.ctxAct = undefined;
             });
 
             this.loading = false;
@@ -298,6 +304,10 @@
 
             createNewFile(e) {
                 const { target } = e;
+                if (!target.value || target.value.length <= 0) {
+                    this.cnf = false;
+                    return;
+                }
                 const nf = this.newFile(target.value);
                 this.cnf = false;
                 this.$nextTick(() => this.sidebarItemClicked(nf));
@@ -305,6 +315,10 @@
 
             createNewSnippet(e) {
                 const { target } = e;
+                if (!target.value || target.value.length <= 0) {
+                    this.cns = false;
+                    return;
+                }
                 const ns = this.newSnippet(target.value);
                 this.cns = false;
                 this.$nextTick(() => this.sidebarItemClicked(ns));
@@ -324,8 +338,25 @@
             },
 
             _ctxAction(action) {
-                console.log(action, this.ctxMenu.item);
+                this.ctxAct = {
+                    item: this.ctxMenu.item,
+                    action
+                };
                 this.ctxMenu = undefined;
+
+                if (action === 'rename') {
+                    this.$nextTick(() => {
+                        const renameInput = this.$refs.renameInput[0];
+                        renameInput.setSelectionRange(0, renameInput.value.split('.')[0].length);
+                        renameInput.focus();
+                    });
+                    return;
+                }
+            },
+
+            renameFile(e, file) {
+                console.log('oldname:newname', file.name, e.target.value);
+                this.ctxAct = undefined;
             }
 
         },
