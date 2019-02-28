@@ -360,7 +360,7 @@
             },
 
             renameFile(e, file) {
-                console.log('oldname:newname', file.name, e.target.value);
+                this.ctxAction('rename', { oldName: file.name, newName: e.target.value });
                 this.ctxAct = undefined;
             }
 
