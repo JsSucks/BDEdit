@@ -112,7 +112,9 @@
             'readSnippet',
             'injectStyle',
             'toggleLiveUpdate',
-            'parentLoading'
+            'parentLoading',
+
+            'ctxAction'
         ],
         data() {
             return {
@@ -352,6 +354,9 @@
                     });
                     return;
                 }
+
+                this.ctxAction(action, this.ctxAct.item);
+                this.ctxAct = undefined;
             },
 
             renameFile(e, file) {
