@@ -359,8 +359,19 @@
                 this.ctxAct = undefined;
             },
 
-            renameFile(e, file) {
-                this.ctxAction('rename', { oldName: file.name, newName: e.target.value });
+            async renameFile(e, file) {
+                const rename = await this.ctxAction('rename', { oldName: file.name, newName: e.target.value });
+                if (rename.err) {
+                    this.ctxAct = undefined;
+                    this.err = rename.err;
+                    return;
+                }
+                this.$nextTick(() => {
+                    if (this.activeFn && this.activeFn.name === rename.oldName) {
+                        file.name = rename.newName;
+                        this.sidebarItemClicked(file);
+                    }
+                });
                 this.ctxAct = undefined;
             }
 
