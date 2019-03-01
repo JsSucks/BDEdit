@@ -19,14 +19,14 @@
     "url": "https://github.com/JsSucks/BDEdit/issues"
   },
   "homepage": "https://github.com/JsSucks/BDEdit#readme",
-  "dependencies": {
-    "ace-builds": "^1.4.3"
+  "peerDependencies": {
+    "vue": "^2.6.8"
   },
   "devDependencies": {
+    "ace-builds": "^1.4.3",
     "css-loader": "^2.1.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "vue": "^2.6.6",
     "vue-loader": "^15.6.4",
     "vue-template-compiler": "^2.6.6",
     "webpack": "^4.29.5",
